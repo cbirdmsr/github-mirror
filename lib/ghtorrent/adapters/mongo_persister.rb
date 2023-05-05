@@ -123,21 +123,18 @@ module GHTorrent
                 false
             end
 
-      Mongo::Logger.logger.level = Logger::WARN
+      Mongo::Logger.logger.level = Logger::DEBUG
       @mongo = Mongo::Client.new(hosts,
 				 :database => db, 
 				 :password => passwd, 
 				 :user => uname, 
-				 :auth_source => 'admin',
-         :read => {
-           :mode => :secondary
-         },
          :retry_reads => true,
          :retry_writes => true,
          :write_concern => {
            :w => "majority",
            :j => true
-         }
+         },
+         :ssl => ssl
       )
 
       dbs = @mongo.list_databases

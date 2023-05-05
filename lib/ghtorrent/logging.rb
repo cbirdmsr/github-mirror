@@ -70,8 +70,9 @@ module GHTorrent
       c = caller[2]
       unless @logprefixes.key? c
         # ignore the first two chars to allow this to run on Windows with c:\...
-        file_path = c[2,c.length - 2].split(/:/)[0]
-        @logprefixes[c] = File.basename(file_path) + ': '
+        file_path, line_number, method_name  = c[2,c.length - 2].split(/:/)[0]
+        file_base_name = File.basename(file_path)
+        @logprefixes[c] = "#{file_base_name}:#{line_number} #{method_name}: "
       end
 
       @logprefixes[c]

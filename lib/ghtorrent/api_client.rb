@@ -266,10 +266,10 @@ module GHTorrent
       end
 
       result = if @attach_ip.nil? or @attach_ip.eql? '0.0.0.0'
-        open(url, headers)
+        URI.open(url, headers)
       else
         attach_to(@attach_ip) do
-          open(url, headers)
+          URI.open(url, headers)
         end
       end
       @remaining = result.meta['x-ratelimit-remaining'].to_i
